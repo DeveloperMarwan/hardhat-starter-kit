@@ -71,7 +71,8 @@ module.exports = {
             chainId: 137,
         },
     },
-    defaultNetwork: "hardhat",
+    // defaultNetwork: "hardhat",
+    defaultNetwork: "localhost",
     etherscan: {
         // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
         apiKey: {
