@@ -21,17 +21,17 @@
   - [Forking](#forking)
   - [Auto-Funding](#auto-funding)
 - [Test](#test)
+  - [Performance optimizations](#performance-optimizations)
 - [Interacting with Deployed Contracts](#interacting-with-deployed-contracts)
   - [Chainlink Price Feeds](#chainlink-price-feeds)
   - [Request & Receive Data](#request--receive-data)
   - [VRF Get a random number](#vrf-get-a-random-number)
-  - [Keepers](#keepers)
+  - [Automation](#automation)
   - [Verify on Etherscan](#verify-on-etherscan)
-- [View Contracts Size](#view-contracts-size)
 - [Linting](#linting)
 - [Code Formatting](#code-formatting)
 - [Estimating Gas](#estimating-gas)
-- [Code Coverage](#code-coverage)
+- [Code coverage](#code-coverage)
 - [Fuzzing](#fuzzing)
 - [Contributing](#contributing)
 - [Thank You!](#thank-you)
@@ -123,8 +123,14 @@ If you run `npx hardhat --help` you'll get an output of all the tasks you can ru
 ```
 npm run deploy
 ```
+Or
+```
+yarn deploy
+```
 
 This will deploy your contracts to a local network. Additionally, if on a local network, it will deploy mock Chainlink contracts for you to interact with. If you'd like to interact with your deployed contracts, skip down to [Interacting with Deployed Contracts](#interacting-with-deployed-contracts).
+
+Note: Please make sure that your local chain is running in a different terminal window. This should be the same local network that you deploy the contracts that require Chainlink services (such as the price feeds and the Truflation consumer)
 
 ## Run a Local Network
 
@@ -135,6 +141,8 @@ npx hardhat node
 ```
 
 You'll get a local blockchain, private keys, contracts deployed (from the `deployment` folder scripts), and an endpoint to potentially add to an EVM wallet. 
+
+Note: use this option if you just want to run the Chainlink services without any interaction with other contracts. 
 
 ## Using a Testnet or Live Network (like Mainnet or Polygon)
 
@@ -309,11 +317,21 @@ Once it's funded, you can request external data by passing in a number of parame
 npx hardhat request-data --contract insert-contract-address-here --network network
 ```
 
+For Truflation use the command below:
+
+```bash
+npx hardhat request-data-truflation --contract insert-contract-address-here --network network
+```
+
 Once you have successfully made a request for external data, you can see the result via the read-data task
 ```bash
 npx hardhat read-data --contract insert-contract-address-here --network network
 ```
 
+For Truflation data, use the command below:
+```bash
+npx hardhat read-data-truflation --contract insert-contract-address-here --network network
+```
 
 ## VRF Get a random number
 The VRFConsumer contract has two tasks, one to request a random number, and one to read the result of the random number request. To start, go to [VRF Subscription Page](https://vrf.chain.link/goerli) and create the new subscription. Save your subscription ID and put it in `helper-hardhat-config.js` file as `subscriptionId`:
