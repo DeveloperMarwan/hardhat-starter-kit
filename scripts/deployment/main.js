@@ -6,7 +6,7 @@
 // global scope, and execute the script.
 const { network, run } = require("hardhat")
 
-const { deployApiConsumer } = require("./deployApiConsumer")
+// const { deployApiConsumer } = require("./deployApiConsumer")
 const { deployTruflationConsumer } = require("./deployTruflationConsumer")
 const { deployAutomationCounter } = require("./deployAutomationCounter")
 const { deployPriceConsumerV3 } = require("./deployPriceConsumerV3")
@@ -16,7 +16,7 @@ async function main() {
     await run("compile")
     const chainId = network.config.chainId
 
-    await deployApiConsumer(chainId)
+    // await deployApiConsumer(chainId)
     await deployTruflationConsumer(chainId)
     await deployAutomationCounter(chainId)
     await deployPriceConsumerV3(chainId)
