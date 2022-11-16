@@ -6,7 +6,7 @@ const {
 } = require("../../helper-hardhat-config")
 
 async function deployPriceConsumerV3(chainId) {
-    let priceFeedAddress, weth_priceFeedAddress, wbtc_priceFeedAddress, base_token_priceFeedAddress;
+    let priceFeedAddress, weth_priceFeedAddress, wbtc_priceFeedAddress, vMATIC_priceFeedAddress;
 
     if (developmentChains.includes(network.name)) {
         const DECIMALS = "18"
@@ -18,8 +18,8 @@ async function deployPriceConsumerV3(chainId) {
         const WBTC_DECIMALS = "8"
         const WBTC_INITIAL_PRICE = "400000000000000000000"
 
-        const BASE_TOKEN_DECIMALS = "6"
-        const BASE_TOKEN_PRICE = "500000000000000000000"
+        const vMATIC_TOKEN_DECIMALS = "8"
+        const vMATIC_TOKEN_PRICE = "89400000"
 
         const mockV3AggregatorFactory = await ethers.getContractFactory("MockV3Aggregator")
         const mockV3Aggregator = await mockV3AggregatorFactory.deploy(DECIMALS, INITIAL_PRICE)
@@ -28,13 +28,13 @@ async function deployPriceConsumerV3(chainId) {
         console.log(`WETH mock aggregator deployed to ${mockV3Aggregator_weth.address} on ${network.name}`)    
         const mockV3Aggregator_wbtc = await mockV3AggregatorFactory.deploy(WBTC_DECIMALS, WBTC_INITIAL_PRICE)
         console.log(`WBTC mock aggregator deployed to ${mockV3Aggregator_wbtc.address} on ${network.name}`)
-        const mockV3Aggregator_btkn = await mockV3AggregatorFactory.deploy(BASE_TOKEN_DECIMALS, BASE_TOKEN_PRICE)
-        console.log(`BaseToken mock aggregator deployed to ${mockV3Aggregator_btkn.address} on ${network.name}`)
+        const mockV3Aggregator_vMATIC = await mockV3AggregatorFactory.deploy(vMATIC_TOKEN_DECIMALS, vMATIC_TOKEN_PRICE)
+        console.log(`BaseToken vMATIC mock aggregator deployed to ${mockV3Aggregator_vMATIC.address} on ${network.name}`)
 
         priceFeedAddress = mockV3Aggregator.address;
         weth_priceFeedAddress = mockV3Aggregator_weth.address;
         wbtc_priceFeedAddress = mockV3Aggregator_wbtc.address;
-        base_token_priceFeedAddress = mockV3Aggregator_btkn.address;
+        vMATIC_priceFeedAddress = mockV3Aggregator_vMATIC.address;
     } else {
         priceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
     }

@@ -35,6 +35,11 @@ async function deployTruflationConsumer(chainId) {
     const jobId = ethers.utils.toUtf8Bytes(networkConfig[chainId]["trufluationJobId"])
     const fee = networkConfig[chainId]["fee"]
 
+    console.log("LINK token address: ", linkTokenAddress);
+    console.log("Truflation Oracle Address: ", oracleAddress);
+    console.log("Truflation Job Id: ", networkConfig[chainId]["trufluationJobId"]); //29fa9aa13bf1468788b7cc4a500a45b8
+    console.log("Truflation fee: ", fee);
+
     const truflationConsumerFactory = await ethers.getContractFactory("TruflationConsumer")
     const truflationConsumer = await truflationConsumerFactory.deploy(oracleAddress, jobId, fee, linkTokenAddress)
 
