@@ -18,8 +18,8 @@ async function deployPriceConsumerV3(chainId) {
         const WBTC_DECIMALS = "8"
         const WBTC_INITIAL_PRICE = "400000000000000000000"
 
-        const vMATIC_TOKEN_DECIMALS = "8"
-        const vMATIC_TOKEN_PRICE = "89400000"
+        const vMATIC_TOKEN_DECIMALS = "18"
+        const vMATIC_TOKEN_PRICE = "100000000000000000000"
 
         const mockV3AggregatorFactory = await ethers.getContractFactory("MockV3Aggregator")
         const mockV3Aggregator = await mockV3AggregatorFactory.deploy(DECIMALS, INITIAL_PRICE)
